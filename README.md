@@ -6,6 +6,10 @@ Dashboard interativo para acompanhamento de carteira de investimentos, desenvolv
 ![Vite](https://img.shields.io/badge/Vite-6-purple)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38bdf8)
 
+## Demonstração
+
+![Dashboard de Investimentos](docs/dashboard.png)
+
 ## Funcionalidades
 
 - **Resumo da carteira** — patrimônio total, valorização média, dividend yield médio e quantidade de ativos, calculados dinamicamente a partir dos dados
