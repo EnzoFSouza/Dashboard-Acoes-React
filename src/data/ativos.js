@@ -11,6 +11,7 @@ export const ativos = [
     max52: 41.85,
     dividendYield: 12.3,
     valorizacao12m: 8.7,
+    quantidade: 50,
   },
   {
     ticker: "VALE3",
@@ -20,6 +21,7 @@ export const ativos = [
     max52: 72.10,
     dividendYield: 9.1,
     valorizacao12m: -4.2,
+    quantidade: 30,
   },
   {
     ticker: "HGLG11",
@@ -29,6 +31,7 @@ export const ativos = [
     max52: 175.30,
     dividendYield: 8.4,
     valorizacao12m: 3.1,
+    quantidade: 15,
   },
   {
     ticker: "MXRF11",
@@ -38,5 +41,6 @@ export const ativos = [
     max52: 10.90,
     dividendYield: 11.2,
     valorizacao12m: 2.0,
+    quantidade: 200,
   },
 ];
