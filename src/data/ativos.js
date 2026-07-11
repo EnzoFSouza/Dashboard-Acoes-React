@@ -4,6 +4,7 @@
 
 export const ativos = [
   {
+    id: "PETR4",
     ticker: "PETR4",
     tipo: "acoes",
     precoAtual: 38.42,
@@ -14,6 +15,7 @@ export const ativos = [
     quantidade: 50,
   },
   {
+    id: "VALE3",
     ticker: "VALE3",
     tipo: "acoes",
     precoAtual: 61.20,
@@ -24,6 +26,7 @@ export const ativos = [
     quantidade: 30,
   },
   {
+    id: "HGLG11",
     ticker: "HGLG11",
     tipo: "fiis",
     precoAtual: 162.50,
@@ -34,6 +37,7 @@ export const ativos = [
     quantidade: 15,
   },
   {
+    id: "MXRF11",
     ticker: "MXRF11",
     tipo: "fiis",
     precoAtual: 10.15,
