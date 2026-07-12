@@ -1,4 +1,12 @@
 function ResumoCarteira({ ativos }) {
+  if (ativos.length === 0) {
+    return (
+      <div className="bg-white border rounded-lg p-4 shadow-sm mb-6 text-gray-500 text-sm">
+        Nenhum ativo cadastrado ainda.
+      </div>
+    );
+  }
+  
   // Patrimônio total: soma de (preço × quantidade) de cada ativo
   const patrimonioTotal = ativos.reduce(
     (total, ativo) => total + ativo.precoAtual * ativo.quantidade,
