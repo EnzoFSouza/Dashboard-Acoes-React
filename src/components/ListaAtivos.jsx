@@ -19,40 +19,23 @@ function ListaAtivos({ ativos }) {
     <div>
       {/* Botões de filtro — cada clique muda o estado */}
       <div className="flex gap-2 mb-4">
+      {["todos", "ação", "FII", "criptomoeda"].map((tipo) => (
         <button
-            /*() => setFiltro("acoes") é uma função anônima (arrow function) 
-            Só executa quando o botão é clicado.
-            Não pode ser onClick={setFiltro("acoes")} direto
-            Isso executaria a função imediatamente ao renderizar a página, não no clique.*/
-          onClick={() => setFiltro("todos")}
-          className={`px-3 py-1 rounded ${
-            filtro === "todos" ? "bg-blue-600 text-white" : "bg-gray-200"
+          key={tipo}
+          onClick={() => setFiltro(tipo)}
+          className={`px-3 py-1 rounded capitalize ${
+            filtro === tipo ? "bg-blue-600 text-white" : "bg-gray-200"
           }`}
         >
-          Todos
+          {tipo === "todos" ? "Todos" : tipo}
         </button>
-        <button
-          onClick={() => setFiltro("acoes")}
-          className={`px-3 py-1 rounded ${
-            filtro === "acoes" ? "bg-blue-600 text-white" : "bg-gray-200"
-          }`}
-        >
-          Ações
-        </button>
-        <button
-          onClick={() => setFiltro("fiis")}
-          className={`px-3 py-1 rounded ${
-            filtro === "fiis" ? "bg-blue-600 text-white" : "bg-gray-200"
-          }`}
-        >
-          FIIs
-        </button>
-      </div>
+      ))}
 
+      </div>
       {/* Renderização de lista — .map() transforma cada item em um componente */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {ativosFiltrados.map((ativo) => (
-          <CardAtivo key={ativo.ticker} ativo={ativo} />
+          <CardAtivo key={ativo.nome} ativo={ativo} />
         ))}
       </div>
     </div>

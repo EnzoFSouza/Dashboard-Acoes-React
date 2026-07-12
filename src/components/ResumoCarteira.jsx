@@ -1,4 +1,5 @@
-function ResumoCarteira({ ativos }) {
+function ResumoCarteira({ ativos, patrimonioTotal }) {
+
   if (ativos.length === 0) {
     return (
       <div className="bg-white border rounded-lg p-4 shadow-sm mb-6 text-gray-500 text-sm">
@@ -6,20 +7,13 @@ function ResumoCarteira({ ativos }) {
       </div>
     );
   }
-  
-  // Patrimônio total: soma de (preço × quantidade) de cada ativo
-  const patrimonioTotal = ativos.reduce(
-    (total, ativo) => total + ativo.precoAtual * ativo.quantidade,
-    0
-  );
 
-  // Valorização média: média simples dos valorizacao12m de todos os ativos
+  // Médias calculadas no frontend — o backend não fornece esses agregados
   const valorizacaoMedia =
-    ativos.reduce((soma, ativo) => soma + ativo.valorizacao12m, 0) / ativos.length;
+    ativos.reduce((soma, a) => soma + (a.lucro_prejuizo / a.total_investido) * 100, 0) /
+    ativos.length;
 
-  // Dividend Yield médio
-  const dyMedio =
-    ativos.reduce((soma, ativo) => soma + ativo.dividendYield, 0) / ativos.length;
+  const dyMedio = 0; // DY não vem do banco ainda
 
   const corValorizacao = valorizacaoMedia >= 0 ? "text-green-600" : "text-red-600";
 
@@ -33,7 +27,7 @@ function ResumoCarteira({ ativos }) {
       </div>
 
       <div className="bg-white border rounded-lg p-4 shadow-sm">
-        <p className="text-xs text-gray-500 uppercase">Valorização Média</p>
+        <p className="text-xs text-gray-500 uppercase">Rentabilidade Média</p>
         <p className={`text-xl font-bold ${corValorizacao}`}>
           {valorizacaoMedia.toFixed(2)}%
         </p>
@@ -41,7 +35,7 @@ function ResumoCarteira({ ativos }) {
 
       <div className="bg-white border rounded-lg p-4 shadow-sm">
         <p className="text-xs text-gray-500 uppercase">Dividend Yield Médio</p>
-        <p className="text-xl font-bold">{dyMedio.toFixed(2)}%</p>
+        <p className="text-xl font-bold text-gray-400">—</p>
       </div>
 
       <div className="bg-white border rounded-lg p-4 shadow-sm">
