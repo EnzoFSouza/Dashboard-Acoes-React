@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 function Header() {
   const navigate = useNavigate();
 
   async function handleLogout() {
-    await fetch("http://localhost:3000/api/logout", {
+    await fetch(`${API_URL}/api/logout`, {
       method: "POST",
       credentials: "include",
     });

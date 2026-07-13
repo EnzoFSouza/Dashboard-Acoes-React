@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "../config";
 
 function FormularioAtivo({ onAporteCriado }) {
 
@@ -18,7 +19,7 @@ function FormularioAtivo({ onAporteCriado }) {
     }
       
     try {
-      const res = await fetch("http://localhost:3000/api/aportes/ticker", {
+      const res = await fetch(`${API_URL}/api/aportes/ticker`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

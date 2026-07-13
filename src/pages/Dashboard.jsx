@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 import Header from "../components/Header";
 import ResumoCarteira from "../components/ResumoCarteira";
 import ListaAtivos from "../components/ListaAtivos";
@@ -14,7 +15,7 @@ function Dashboard() {
   function buscarCarteira() {
     setCarregando(true);
 
-    fetch("http://localhost:3000/api/carteira/resumo", {
+    fetch(`${API_URL}/api/carteira/resumo`, {
       credentials: "include", //envia o cookie JWT automaticamente
     })
       .then((res) => {
