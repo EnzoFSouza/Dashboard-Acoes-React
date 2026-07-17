@@ -1,55 +1,58 @@
 # Dashboard de Investimentos
 
-Interface web para acompanhamento de carteira de investimentos pessoais, desenvolvida em React. Consome a [Investimentos API](https://github.com/EnzoFSouza/investimentos-api) e permite visualizar posições em ações, FIIs e criptomoedas, registrar aportes e acompanhar rentabilidade.
+Interface web para acompanhamento de carteira de investimentos pessoais, desenvolvida em React. Consome a [Investimentos API](https://github.com/EnzoFSouza/investimentos-api) e permite visualizar posições em ações, FIIs e criptomoedas, registrar aportes e acompanhar rentabilidade em tempo real.
 
-![Dashboard](docs/dashboard-aportes.png)
+🔗 **[Acessar o dashboard](https://dashboard-acoes-react.vercel.app)**
+
+![Dashboard](docs/dashboard_17_07.png)
 
 ## Funcionalidades
 
-- **Autenticação** — login e logout com JWT armazenado em cookie `httpOnly`
-- **Resumo da carteira** — patrimônio total, rentabilidade média e quantidade de ativos, calculados a partir dos dados armazenados em banco de dados
+- **Autenticação completa** — cadastro, login e logout com JWT armazenado em cookie `httpOnly`
+- **Resumo da carteira** — patrimônio total, rentabilidade média e quantidade de ativos calculados a partir de dados reais do banco
 - **Cards individuais** — preço atual, quantidade, total investido, valor atual e lucro/prejuízo por ativo
-- **Filtro por tipo** — alternância entre Todos, Ação, FII e Criptomoeda
+- **Filtro por tipo** — alternância dinâmica entre Todos, Ação, FII e Criptomoeda
 - **Registro de aportes** — formulário para adicionar posições em ativos cadastrados na API
 - **Proteção de rotas** — redirecionamento automático para login quando não autenticado
+- **Tratamento de erros** — feedback visual para ativo inexistente, campos inválidos e erros de conexão
 
 ## Stack
 
-- **React 19** — biblioteca para construção da interface
-- **Vite** — build tool e servidor de desenvolvimento
-- **Tailwind CSS 4** — estilização utility-first
-- **React Router DOM** — roteamento entre páginas (login e dashboard)
+- **React 19** com **Vite**
+- **Tailwind CSS 4**
+- **React Router DOM** — roteamento entre páginas
 
-## Conceitos aplicados
+## Conceitos de React aplicados
 
-- Componentização (`Header`, `ResumoCarteira`, `ListaAtivos`, `CardAtivo`, `FormularioAtivo`)
+- Componentização com separação clara de responsabilidades
 - Gerenciamento de estado com `useState`
-- Comunicação com API externa via `useEffect` e `fetch` com `credentials: "include"`
+- Efeitos colaterais e comunicação com API via `useEffect` e `fetch`
 - Roteamento com `BrowserRouter`, `Routes`, `Route` e `Navigate`
 - Navegação programática com `useNavigate`
-- Formulários controlados (inputs gerenciados por estado)
-- Manipulação de arrays: `.filter()`, `.map()`, `.reduce()`
+- Formulários controlados — inputs gerenciados por estado
+- Manipulação funcional de arrays: `.filter()`, `.map()`, `.reduce()`
+- Comunicação filho → pai via funções passadas como props
 
 ## Arquitetura
 
-Este projeto é exclusivamente frontend — toda a lógica de negócio, autenticação e persistência de dados está na [Investimentos API](https://github.com/EnzoFSouza/investimentos-api), desenvolvida em Node.js/Express com SQLite.
+Este repositório é exclusivamente frontend. Toda a lógica de negócio, autenticação e persistência está na [Investimentos API](https://github.com/EnzoFSouza/investimentos-api).
 
 ```
-dashboard-react/          ← este repositório (frontend)
-investimentos-api/        ← repositório separado (backend)
+Dashboard React (Vercel)
+    ↓ HTTPS + cookie httpOnly (sameSite: none)
+Investimentos API (Railway)
+    ↓
+SQLite (volume persistente)
 ```
 
-## Como executar
+A separação em repositórios independentes permite que múltiplos frontends consumam a mesma API — atualmente também existe uma versão em HTML/CSS/JS puro consumindo as mesmas rotas.
+
+## Como executar localmente
 
 **Pré-requisito:** a [Investimentos API](https://github.com/EnzoFSouza/investimentos-api) precisa estar rodando em `http://localhost:3000`.
 
-**1. Instalar dependências:**
 ```bash
 npm install
-```
-
-**2. Iniciar o servidor de desenvolvimento:**
-```bash
 npm run dev
 ```
 
@@ -60,27 +63,35 @@ O projeto estará disponível em `http://localhost:5173`.
 ```
 src/
 ├── pages/
-│   ├── Login.jsx         ← formulário de autenticação
-│   └── Dashboard.jsx     ← página principal protegida
+│   ├── Login.jsx           ← autenticação
+│   ├── Registro.jsx        ← cadastro de novo usuário
+│   └── Dashboard.jsx       ← página principal protegida
 ├── components/
-│   ├── Header.jsx        ← título e botão de logout
-│   ├── ResumoCarteira.jsx ← métricas consolidadas da carteira
-│   ├── ListaAtivos.jsx   ← filtro e grid de ativos
-│   ├── CardAtivo.jsx     ← card individual de cada ativo
-│   └── FormularioAtivo.jsx ← registro de novos aportes
-└── App.jsx               ← roteador principal
+│   ├── Header.jsx          ← título e botão de logout
+│   ├── ResumoCarteira.jsx  ← métricas consolidadas
+│   ├── ListaAtivos.jsx     ← filtro e grid de ativos
+│   ├── CardAtivo.jsx       ← card individual por ativo
+│   └── FormularioAtivo.jsx ← registro de aportes
+├── config.js               ← URL da API por ambiente
+└── App.jsx                 ← roteador principal
 ```
 
-## Backend relacionado
+## Variáveis de ambiente
 
-Este frontend consome a **Investimentos API**: um backend REST desenvolvido em Node.js com Express e SQLite, que centraliza autenticação, persistência e cálculos financeiros para múltiplos frontends.
+| Variável | Descrição |
+|----------|-----------|
+| `VITE_API_URL` | URL base da API (ex: `http://localhost:3000`) |
 
-Repositório: [investimentos-api](https://github.com/EnzoFSouza/investimentos-api)
+Crie um `.env.development` localmente com:
+```
+VITE_API_URL=http://localhost:3000
+```
+
+Em produção, a variável é configurada diretamente no painel da Vercel.
 
 ## Próximos passos
 
-- Deploy na Vercel
-- Página de registro de novos usuários
-- Integração com scraper Python para atualização automática de preços
+- Integração com scraper Python para atualização automática de preços via API
 - Histórico de aportes por ativo
 - Gráfico de evolução do patrimônio
+- Página de perfil do usuário
