@@ -40,9 +40,9 @@ Este repositório é exclusivamente frontend. Toda a lógica de negócio, autent
 ```
 Dashboard React (Vercel)
     ↓ HTTPS + cookie httpOnly (sameSite: none)
-Investimentos API (Railway)
+Investimentos API (Render)
     ↓
-SQLite (volume persistente)
+SQLite
 ```
 
 A separação em repositórios independentes permite que múltiplos frontends consumam a mesma API — atualmente também existe uma versão em HTML/CSS/JS puro consumindo as mesmas rotas.
