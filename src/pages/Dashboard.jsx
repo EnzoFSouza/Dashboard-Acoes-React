@@ -5,11 +5,14 @@ import Header from "../components/Header";
 import ResumoCarteira from "../components/ResumoCarteira";
 import ListaAtivos from "../components/ListaAtivos";
 import FormularioAtivo from "../components/FormularioAtivo";
+import GraficoAtivo from "../components/GraficoAtivo";
 
 function Dashboard() {
   const [ativos, setAtivos] = useState([]);
+  const [ativoSelecionado, setAtivoSelecionado] = useState(null);
   const [patrimonioTotal, setPatrimonio] = useState(0);
   const [carregando, setCarregando] = useState(true);
+  const [historicoAtualizado, setHistoricoAtualizado] = useState(0);
   const navigate = useNavigate();
 
   function buscarCarteira() {
@@ -52,7 +55,17 @@ function Dashboard() {
       <Header />
       <FormularioAtivo onAporteCriado={buscarCarteira} />
       <ResumoCarteira ativos={ativos} patrimonioTotal={patrimonioTotal} />
-      <ListaAtivos ativos={ativos} />
+      <ListaAtivos 
+        ativos={ativos} 
+        onSelecionarAtivo={setAtivoSelecionado} 
+        onPrecoAtualizado={() => {
+          buscarCarteira();
+          setHistoricoAtualizado((valor) => valor + 1);
+        }}/>
+      <GraficoAtivo
+        ativo={ativoSelecionado}
+        historicoAtualizado={historicoAtualizado}
+      />
     </div>
   );
 }

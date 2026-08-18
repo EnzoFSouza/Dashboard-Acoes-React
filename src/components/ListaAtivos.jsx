@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CardAtivo from "./CardAtivo";
 
-function ListaAtivos({ ativos }) {
+function ListaAtivos({  ativos,  onSelecionarAtivo,  onPrecoAtualizado}) {
   // useState cria uma variável reativa.
   // "filtro" é o valor atual, "setFiltro" é a função para mudá-lo.
   // Quando setFiltro é chamado, o React re-renderiza este componente.
@@ -35,7 +35,7 @@ function ListaAtivos({ ativos }) {
       {/* Renderização de lista — .map() transforma cada item em um componente */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {ativosFiltrados.map((ativo) => (
-          <CardAtivo key={ativo.nome} ativo={ativo} />
+          <CardAtivo key={ativo.nome} ativo={ativo} onClick={() => onSelecionarAtivo(ativo) } onPrecoAtualizado={onPrecoAtualizado} />
         ))}
       </div>
     </div>
